@@ -1,24 +1,38 @@
 package geoapp;
 
-public class GovernedRegion {
+public abstract class GovernedRegion {
 	
-	// Represents any physical area that has a government
+	// Represents any physical area that has a name, an area, a population, a a suicide rate, a government form 
 
-	public enum GovForm {ANARCHY, COMMUNISM, DEMOCRACY, MONARCHY, MILITARY_DICTAGORSHIP, TOTALITARIANISM};
-	
-	protected double area;
-	protected int population;
-	protected GovForm govForm; 
 	
 	
-protected GovernedRegion(double area, int population, GovForm govForm) {
 	
+
+	protected String name; 
+	protected Double area;
+	protected Integer population;
+	
+	
+	
+	
+protected GovernedRegion(String name, Double area, Integer population) {
+	
+	
+	this.name = name; 
 	this.area = area; 
 	this.population = population;
-	this.govForm = govForm;
+	
 }
 
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
 	
+}
+
 
 public double getArea(){
 	return area;
@@ -28,22 +42,17 @@ public void setArea(double area){
 	this.area = area;
 }
 
+
 public int getPopulation(){
 	return population;
 }
 
-public void setPopulation(int population)
-{
+public void setPopulation(int population){
 	this.population=population;
 }
 
 
-public GovForm getgovForm(){
-	return govForm;
-}
 
-public void setGovForm(GovForm govForm){
-	this.govForm = govForm;
-}
+
 
 }
