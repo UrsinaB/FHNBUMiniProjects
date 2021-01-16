@@ -16,7 +16,7 @@ public enum MessageTypes {
 		
 	    public static MessageTypes parseType(String typeName) {
 	    	
-	    	MessageTypes type = MessageTypes.Error;
+	    	MessageTypes type = null;
 	    	
 	    	for (MessageTypes value : MessageTypes.values()) {
 	    		if (value.toString().equals(typeName)) type = value;
@@ -27,11 +27,11 @@ public enum MessageTypes {
 	   
 	    public static MessageTypes getType(Message msg) {
 	    	
-	    	MessageTypes type = MessageTypes.Error;
-	    	
+	    	MessageTypes type = null;
 	    	if (msg instanceof MessagePing) type = Ping;
 	
-	    	else if (msg instanceof MessageResult) type = Result;
+	    	else if (msg instanceof MessageCreateLogin) type = CreateLogin;
+	    	else if (msg instanceof MessageError) type = Error;
 	    	return type;
 	    }	
 		

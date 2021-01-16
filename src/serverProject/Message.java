@@ -36,33 +36,37 @@ public abstract class Message {
 		}
 	}
 		
-public static Message receive(Socket socket) {
-	BufferedReader in;
+public static Message receive(Socket socket)  {
+	
 	Message msg = null;
 	
 	try {
-		in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+		BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
 		String msgIn = in.readLine();
 		logger.info("Receiving message: " + msgIn);
 		
-    	
-		
+	
 		String[] parts = msgIn.split("\\|");
+		           
+		 
+		 if(parts[0].equals(MessageTypes.Ping.toString()))
+		msg = new MessagePing(parts[0]);
 		
-		if (parts[0].equals(MessageTypes.Ping.toString())) {
-			msg = new MessagePing(parts[0]);
-		} else if (parts[0].equals(MessageTypes.CreateLogin.toString())) {
-			msg = new MessageCreateLogin(parts[1], parts[2]);
+	    else if (parts[0].equals(MessageTypes.CreateLogin.toString()))
+		msg = new MessageCreateLogin(parts[1], parts[2]);	
 		
-			
-		}
-		
-} catch (Exception e) {
-	logger.warning(e.toString());
-}
-	return msg;
-	}
+		else 
+	    msg = new MessageError();
+		        
 
+  } catch (Exception e) {
+	logger.warning(e.toString());
+  }
+    return msg;
+  
+  }
+
+public abstract boolean process();
 	
 }
 	

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-
-
 public class ClientThread extends Thread {
 	
 	private final Logger logger = Logger.getLogger("");
@@ -19,6 +17,7 @@ public class ClientThread extends Thread {
 public void run() {
 	logger.info("Request from client " + clientSocket.getInetAddress().toString() + " for server: " + clientSocket.getLocalAddress().toString());
 	
+	while (true)
 	try {
 	Message msgIn = Message.receive(clientSocket);
 	Message msgOut = processMessage(msgIn);
@@ -27,23 +26,28 @@ public void run() {
 	} catch (Exception e) {
         logger.severe(e.toString());
     } finally {
-        try { if (clientSocket != null) clientSocket.close(); } catch (IOException e) {}
     }
  }
 
 private Message processMessage(Message msgIn) {
-	
-	logger.info("Message received from client: " + msgIn.toString());
 	
 	Message msgOut = null;	
 	switch (MessageTypes.getType(msgIn)) {
 	case Ping:
 		msgOut = new MessageResult(true);
 		break;
+	case CreateLogin:
+		if(msgIn.process() == true)
+		msgOut = new MessageResult(true);
+		if(msgIn.process() == false)
+		msgOut = new MessageResult(false);
+	case Error:
+		msgOut = new MessageResult(false);
+	    break;
 	default:
 		msgOut = new MessageResult(false);
+		
 	}
-	
 	return msgOut;
- }
+   }
 }

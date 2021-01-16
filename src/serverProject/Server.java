@@ -13,7 +13,6 @@ public class Server {
 		 
 		Logger logger = Logger.getLogger("");
 		
-				
 				try (ServerSocket listener = new ServerSocket(5002, 10, null)) {
 					logger.info("Listening on port " + 5002);
 

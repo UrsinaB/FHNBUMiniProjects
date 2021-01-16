@@ -18,6 +18,12 @@ public class MessagePing extends Message{
 	@Override
 	public String toString() {
 		return type.toString() +  '|' + userName;
+	}
+
+	@Override
+	public boolean process() {
+		boolean result = true;
+		return result;
 	}	
 }
 

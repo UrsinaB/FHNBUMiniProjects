@@ -31,6 +31,19 @@ public class MessageCreateLogin extends Message {
 	public String toString() {
 		return type.toString() + '|' + userName + '|' + password;
 	}
-	
 
+@Override
+	public boolean process() {
+			boolean result = false;
+			if (userName != null && password != null) {
+				
+			UserAccount newUserAccount = new UserAccount(userName, password, null);
+			UserAccount.add(newUserAccount);
+			result = true;
+			}
+				return result;
+	}			
 }
+
+
+		

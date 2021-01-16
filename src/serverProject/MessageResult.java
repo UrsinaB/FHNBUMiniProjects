@@ -22,5 +22,12 @@ public MessageResult(Boolean result) {
 	public String toString() {
 		return type.toString() +  '|' + result;
 	}
+
+	@Override
+	public boolean process() {
+		boolean result = true;
+		return result;
+		
+	}
 	
 }
